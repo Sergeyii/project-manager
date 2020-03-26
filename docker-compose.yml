@@ -2,8 +2,8 @@ version: '3'
 services:
   manager-nginx:
     build:
-      context: ./manager/docker/development
-      dockerfile: nginx.docker
+      context: ./manager
+      dockerfile: ./docker/development/nginx.docker
     volumes:
       - ./manager:/app
     depends_on:
@@ -12,8 +12,8 @@ services:
       - 8080:80
   manager-php-fpm:
     build:
-      context: ./manager/docker/development
-      dockerfile: php-fpm.docker
+      context: ./manager
+      dockerfile: ./docker/development/php-fpm.docker
     volumes:
       - ./manager:/app
   :
@@ -22,3 +22,5 @@ services:
       dockerfile: php-cli.docker
     volumes:
       - ./manager:/app
+    tty: true
+    stdin_open: true
