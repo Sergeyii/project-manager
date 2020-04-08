@@ -16,7 +16,7 @@ services:
       dockerfile: ./docker/development/php-fpm.docker
     volumes:
       - ./manager:/app
-  :
+  manager-php-cli:
     build:
       context: ./manager/docker/development
       dockerfile: php-cli.docker
@@ -24,3 +24,17 @@ services:
       - ./manager:/app
     tty: true
     stdin_open: true
+  manager-postgres:
+    image: postgres:11.2-alpine
+    restart: always
+    volumes:
+      - manager-postgres:/var/lib/postgresql/data
+    environment:
+      POSTGRES_USER: app
+      POSTGRES_PASSWORD: secret
+      POSTGRES_DB: app
+    ports:
+      - 54321:5432
+
+volumes:
+  manager-postgres:
