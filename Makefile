@@ -1,3 +1,17 @@
+up:
+	docker-up
+init:
+	docker-down docker-pull docker-build docker-up
+
+docker-up:
+	docker-compose up -d
+docker-down:
+	docker-compose down --remove-orphans
+docker-pull:
+	docker-compose pull
+docker-build:
+	docker-compose build
+
 dev-up:
 	docker network create app
 	docker run -d --name manager-php-fpm -v ${PWD}/manager:/app --network=app manager-php-fpm
